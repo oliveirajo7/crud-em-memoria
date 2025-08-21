@@ -1,0 +1,24 @@
+{
+  "name": "crud-em-memoria",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliveirajo7/crud-em-memoria.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliveirajo7/crud-em-memoria/issues"
+  },
+  "homepage": "https://github.com/oliveirajo7/crud-em-memoria#readme",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
