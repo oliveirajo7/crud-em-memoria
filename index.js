@@ -4,11 +4,13 @@ const app = express();
 app.use(express.json());
 
 let ultimoId = 1;
+
 const usuario_admin = {
     id: ultimoId,
     nome: "admin",
     email: "admin@gmail.com",
 };
+
 let usuarios = [usuario_admin];
 
 
@@ -23,17 +25,16 @@ app.post("/usuarios", (req, res) => {
         return res.status(400).json({ mensagem: "Nome e email são obrigatórios" });
     }
 
-    ultimoId++;
-    const novoUsuario = { id: ultimoId, nome, email };
-    usuarios.push(novoUsuario);
+    const novoUsuario = {
+        nome:nome,
+        email:email,
+        id:ultimoId + 1
+    }
 
-    return res.status(201).json(novoUsuario);
+    usuarios.push(novoUsuario);
+    ultimoId += 1;
+
+    res.status(201).json(novoUsuario.id);
 });
 
 app.listen(3000);
-
-/**
- * CRUD em memória
- * criar uma rota para pegar todos os usuários
- * criar u
- */
