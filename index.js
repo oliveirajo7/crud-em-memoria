@@ -15,7 +15,7 @@ let usuarios = [usuario_admin];
 
 // GET PARA LISTAR TODOS OS USUÁRIOS
 app.get("/usuarios", (req, res) => {
-  res.json(usuarios).status(200);
+  res.status(200).json(usuarios);
 });
 
 app.get("/usuarios/:id", (req,res) => {
