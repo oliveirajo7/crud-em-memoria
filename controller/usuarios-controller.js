@@ -12,7 +12,6 @@ let usuarios = [usuario_admin];
 
 //funcoes do controller por rota
 function listarTodosUsuarios(req, res) {
-    console.log("CHEGOU NO CONTROLLER");
     res.status(200).json(usuarios);
 }
 
