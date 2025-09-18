@@ -28,14 +28,14 @@ async function buscarUsuarioPorId (req, res) {
     const id = parseInt(req.params.id);
 
     if (isNaN(id)) {
-        return res.status(400).json({ mensagem: "ID inválido, precisa ser um número" });
+        return res.status(400).json({ message: "ID inválido, precisa ser um número" });
     }
 
     try {
         const usuario = await prisma.users.findUnique({where: {id: id}});
 
         if (!usuario) {
-            return res.status(404).json({ mensagem: "Usuário não encontrado" });
+            return res.status(404).json({ message: "Usuário não encontrado" });
         }
 
         res.json(usuario).status(200);
@@ -47,10 +47,10 @@ async function buscarUsuarioPorId (req, res) {
 async function criarUsuario (req, res) {
     const { name, email, age } = req.body;
 
-    if (!nome || !email){
-        return res.status(400).json({mensage:"Nome e email são obrigatórios "})
+    if (!name || !email){
+        return res.status(400).json({message:"Nome e email são obrigatórios "})
     }
-    
+
     try {
         await prisma.users.create({
             data: {
@@ -59,10 +59,10 @@ async function criarUsuario (req, res) {
                 age: age
             }
         });
-        res.status(201).send(user);
+        res.status(201).json({message: "Usuário criado com sucesso"})
 
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
 };
 
@@ -73,10 +73,15 @@ async function deletarUsuario (req, res) {
     if (isNaN(id)){
         return res
         .status(400)
-        .json({mensagem: "ID inválido"});
+        .json({message: "ID inválido"});
     }
-    await prisma.users.delete({where: {id: id}});
-    res.status(204).send();
+
+    try {
+        await prisma.users.delete({where: {id: id}});
+        res.status(204).send();
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 async function atualizarUsuario (req, res) { 
@@ -85,21 +90,25 @@ async function atualizarUsuario (req, res) {
     if (isNaN(id)){
         return res
         .status(400)
-        .json({mensagem: "ID inválido"});
+        .json({message: "ID inválido"});
     }
 
     const { name, email, age } = req.body;
 
-    await prisma.users.update({
-      where: {id: id},
-      data: { 
-        name: name,
-        email: email,
-        age: age
-      }
-    });
+    try {
+        await prisma.users.update({
+            where: {id: id},
+            data: { 
+                name: name,
+                email: email,
+                age: age
+            }
+        });
+        res.status(200).send();
 
-    res.status(200).send();
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 
@@ -107,7 +116,7 @@ async function atualizarUsuario (req, res) {
 export { 
     listarTodosUsuarios,
     buscarUsuarioPorId,
-    criarUsuario,
+    criarUsuario,   
     atualizarUsuario,
     deletarUsuario
  };
